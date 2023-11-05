@@ -1,0 +1,96 @@
+openapi: 3.0.3
+info:
+  title: Бинарные деревья
+  version: 1.0.11
+servers:
+- description: test server
+  url: http://localhost:8080/api/v1/
+paths:
+  /path:
+    delete:
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Успешное удаление пути.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Что-то пошло не так
+      summary: Метод удаления пройденного пути
+      tags:
+      - Деревья
+      x-accepts: application/json
+      x-tags:
+      - tag: Деревья
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Path'
+          description: Успешный ответ со списком пройденных путей.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Что-то пошло не так
+      summary: Метод получения пройденных путей
+      tags:
+      - Деревья
+      x-accepts: application/json
+      x-tags:
+      - tag: Деревья
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Path'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Path'
+          description: Успешный ответ добавленного пути.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Что-то пошло не так
+      summary: Метод добавления пройденного пути
+      tags:
+      - Деревья
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Деревья
+components:
+  schemas:
+    Path:
+      example:
+        savedPath: 0
+      properties:
+        savedPath:
+          description: Номер пройденного пути
+          type: integer
+      required:
+      - savedPath
+      type: object
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - name
+      type: object

@@ -1,0 +1,85 @@
+openapi: 3.0.3
+info:
+  title: Бинарные деревья
+  version: 1.0.11
+servers:
+  - url: http://localhost:8080/api/v1/
+    description: test server
+paths:
+  /path:
+    get:
+      summary: Метод получения пройденных путей
+      tags:
+          - Деревья
+      responses:
+        '200':
+          description: Успешный ответ со списком пройденных путей.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/schemas/Path"
+        'default':
+          description: Что-то пошло не так
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Метод добавления пройденного пути
+      tags:
+        - Деревья
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Path"
+      responses:
+        '200':
+          description: Успешный ответ добавленного пути.
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/schemas/Path"
+        'default':
+          description: Что-то пошло не так
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Метод удаления пройденного пути
+      tags:
+        - Деревья
+      responses:
+        '200':
+          description: Успешное удаление пути.
+          content:
+            application/json: {}
+        'default':
+          description: Что-то пошло не так
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    Path:
+      type: object
+      required:
+        - savedPath
+      properties:
+        savedPath:
+          type: integer
+          description: Номер пройденного пути
+    Error:
+      type: object
+      required:
+        - code
+        - name
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
